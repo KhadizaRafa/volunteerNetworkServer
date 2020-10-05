@@ -51,10 +51,19 @@ client.connect(err => {
                 res.send(result.deletedCount > 0);
             })
     })
+
     app.get('/getVolunteers/', (req, res) => {
         volunteerCollection.find({})
         .toArray((err, documents) => {
             res.send(documents)
+        })
+    })
+
+    app.post('/addEvent', (req, res) => {
+        taskCollection.insertOne(req.body)
+        .then(result => {
+            console.log(result)
+            res.send(result.insertedCount > 0);
         })
     })
     
